@@ -31,7 +31,7 @@ try:
         cookie_expiry_days=4
     )
 
-    email, authentication_status, username = Authenticator.login(':green[Log In]', 'main')
+    email, authentication_status, username = Authenticator.login('Log In', 'main')
 
     info, info1 = st.columns(2)
 
