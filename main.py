@@ -7,12 +7,11 @@ from streamlit import switch_page, session_state
 from streamlit_option_menu import option_menu
 
 from menu import menu_sidebar
+
 st.set_page_config(page_title='Resume Maker', page_icon='📃', initial_sidebar_state='collapsed')
-#Logo
+
+# Logo
 st.logo("https://www.dorsch.ae/fileadmin/Logos/global/Logo_DorschGlobal_1000_w.svg")
-# # Initialize session state for login
-# if 'logged_in' not in st.session_state:
-#     st.session_state.logged_in = False
 
 try:
     with SessionLocal() as db:
@@ -25,12 +24,8 @@ try:
     for index in range(len(emails)):
         credentials['usernames'][usernames[index]] = {'name': emails[index], 'password': passwords[index]}
 
-    names = [credentials['usernames'][username]['name'] for username in usernames]
-
     Authenticator = stauth.Authenticate(
-        names=names,
-        usernames=usernames,
-        passwords=passwords,
+        credentials=credentials,
         cookie_name='Streamlit',
         key='abcdef',
         cookie_expiry_days=4
@@ -46,15 +41,10 @@ try:
     if username:
         if username in usernames:
             if authentication_status:
-
-                # st.session_state.logged_in = True
                 menu_sidebar()
                 st.logo("https://www.dorsch.ae/fileadmin/Logos/global/Logo_DorschGlobal_1000_w.svg")
                 st.sidebar.subheader(f'Welcome :green[{username}]')
                 Authenticator.logout('Log Out', 'sidebar')
-
-
-
             elif not authentication_status:
                 with info:
                     st.error('Incorrect Password or username')
@@ -68,4 +58,3 @@ try:
 except Exception as e:
     st.success('Refresh Page')
     st.error(f'Error: {e}')
-
