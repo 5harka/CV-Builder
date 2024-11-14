@@ -2,7 +2,7 @@
 streamlit
 pandas
 numpy
-streamlit-authenticator
+streamlit-authenticator==0.1.5
 spacy
 sqlalchemy
 streamlit-option-menu
