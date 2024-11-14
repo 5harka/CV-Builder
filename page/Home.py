@@ -1,7 +1,6 @@
 
 import streamlit as st
 from PIL import Image
-from menu import menu_sidebar
 from streamlit import switch_page
 def home_page():
     # Initialize session state
